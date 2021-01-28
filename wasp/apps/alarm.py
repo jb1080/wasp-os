@@ -18,7 +18,7 @@ import fonts
 import time
 import widgets
 
-# 2-bit RLE, generated from /home/pi/Downloads/alarm_icon.png, 386 bytes
+# 2-bit RLE, generated from /home/Downloads/alarm_icon.png, 386 bytes
 icon = (
     b'\x02'
     b'`@'
