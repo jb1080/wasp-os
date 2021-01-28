@@ -114,7 +114,7 @@ class ClockApp():
         minuta = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"]
         self._min = now[4]
         if now[4] == 0:
-            say = ("", "", stunda[now[3] % 12])
+            say = ("", "", "", stunda[now[3] % 12])
         elif now[4] == 15:
             say = ("quarter", "after", "", stunda[now[3] % 12])
         elif now[4] == 30:
