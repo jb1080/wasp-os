@@ -117,15 +117,15 @@ class Manager():
         self.musicinfo = {}
 
         self._theme = (
-                b'\x7b\xef'     # ble
+                b'\xf8\x00'     # ble
                 b'\x7b\xef'     # scroll-indicator
-                b'\x7b\xef'     # battery
+                b'\xf8\x00'     # battery
                 b'\xe7\x3c'     # status-clock
-                b'\x7b\xef'     # notify-icon
+                b'\xf8\x00'     # notify-icon
                 b'\xff\xff'     # bright
                 b'\xbd\xb6'     # mid
-                b'\x39\xff'     # ui
-                b'\xff\x00'     # spot1
+                b'\xff\xff'     # ui
+                b'\xf8\x00'     # spot1
                 b'\xdd\xd0'     # spot2
                 b'\x00\x0f'     # contrast
         )
