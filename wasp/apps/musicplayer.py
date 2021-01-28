@@ -4,7 +4,7 @@
 
 """Music Player for GadgetBridge
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+Modified Icon
     .. figure:: res/MusicApp.png
         :width: 179
 
@@ -29,7 +29,7 @@ icon = (
     b'\x02'
     b'`@'
     b'\x1e\xa4<\xa4<\xa4;\xa6?X\xec2\xf0/\xf2-'
-    b'\xf4,\xc3@[n\xc3,\xc3n\xc3,\xc3n\xc3,'
+    b'\xf4,\xc3@\xb4n\xc3,\xc3n\xc3,\xc3n\xc3,'
     b'\xc3n\xc3,\xc3b\xc7E\xc3,\xc3]\xccE\xc3,'
     b'\xc3Z\xcfE\xc3,\xc3T\xd5E\xc3,\xc3Q\xd8E'
     b'\xc3,\xc3Q\xd8E\xc3,\xc3Q\xd8E\xc3,\xc3Q'
