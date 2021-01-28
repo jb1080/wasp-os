@@ -3,7 +3,7 @@
 
 """Fibonacci clock
 ~~~~~~~~~~~~~~~~~~
-
+Modified Icon
 The Fibonacci sequence is a sequence of numbers created by the Italian
 mathematician Fibonacci in the 13th century. This is a sequence starting with
 1 and 1, where each subsequent number is the sum of the previous two. For the
@@ -33,11 +33,11 @@ COLORS = [0xffff,0xf800,0x07e0,0x001f] # White, red, green and blue
 FIELDS = b'\x05\x03\x02\x01\x01'
 MONTH = 'JanFebMarAprMayJunJulAugSepOctNovDec'
 
-# 2-bit RLE, generated from res/fibo_icon.png, 246 bytes
+# 2-bit RLE, generated from /home/pi/Downloads/fibo_icon.png, 246 bytes
 icon = (
     b'\x02'
     b'`@'
-    b'?\xff\xffk\xd3\x01\xc9\x01@\x1er\x10\xd3\x01\xc9\x01'
+    b'?\xff\xffk\xd3\x01\xc9\x01@\xb4r\x10\xd3\x01\xc9\x01'
     b'r\x10\xd3\x01\xc9\x01r\x10\xd3\x01\xc9\x01r\x10\xd3\x01'
     b'\xc9\x01r\x10\xd3\x01\xc9\x01r\x10\xd3\x01\xc9\x01r\x10'
     b'\xd3\x01\xc9\x01r\x10\xd3\x01\xc9\x01r\x10\xd3\x0br\x10'
