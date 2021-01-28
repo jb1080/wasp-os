@@ -3,7 +3,9 @@
 
 """Digital clock
 ~~~~~~~~~~~~~~~~
-
+Modified version of Daniel Thompson's Digital clock.
+Used purlupar's literal clock as base for a red and white themed literal clock.
+Code is a mess, needs to be tidied.
 Shows a time (as HH:MM) together with a battery meter and the date.
 
 .. figure:: res/ClockApp.png
@@ -11,9 +13,10 @@ Shows a time (as HH:MM) together with a battery meter and the date.
 """
 
 import wasp
-
 import icons
 import fonts.clock as digits
+import fonts.sans36 as sans36
+import fonts.sans24 as sans24
 
 DIGITS = (
         digits.clock_0, digits.clock_1, digits.clock_2, digits.clock_3,
@@ -21,12 +24,21 @@ DIGITS = (
         digits.clock_8, digits.clock_9
 )
 
-MONTH = 'JanFebMarAprMayJunJulAugSepOctNovDec'
+
+MONTH = '010203040506070809101112'
 
 class ClockApp():
     """Simple digital clock application."""
     NAME = 'Clock'
     ICON = icons.clock
+    
+    def battery(self):
+        draw = wasp.watch.drawable
+        h = wasp.watch.battery.level() * 2
+        c = 0xffff
+        if wasp.watch.battery.charging():
+            c = 0xf800
+        draw.fill(c, 235, 1, 5, h) 
 
     def foreground(self):
         """Activate the application.
@@ -37,6 +49,7 @@ class ClockApp():
         wasp.system.bar.clock = False
         self._draw(True)
         wasp.system.request_tick(1000)
+        self.battery()
 
     def sleep(self):
         """Prepare to enter the low power mode.
@@ -54,6 +67,7 @@ class ClockApp():
         the display RAM is preserved during a sleep.
         """
         self._draw()
+        self.battery()
 
     def tick(self, ticks):
         """Periodic callback to update the display."""
@@ -76,32 +90,56 @@ class ClockApp():
 
             # Clear the display and draw that static parts of the watch face
             draw.fill()
-            draw.blit(digits.clock_colon, 2*48, 80, fg=mid)
-
+            #draw.blit(digits.clock_colon, 2*48, 120, fg=mid)
             # Redraw the status bar
-            wasp.system.bar.draw()
+            #wasp.system.bar.draw()
+            self.battery()
+             
         else:
             # The update is doubly lazy... we update the status bar and if
             # the status bus update reports a change in the time of day 
             # then we compare the minute on display to make sure we 
             # only update the main clock once per minute.
-            now = wasp.system.bar.update()
+            now = wasp.watch.rtc.get_localtime()
             if not now or self._min == now[4]:
                 # Skip the update
+                self.battery()
                 return
 
-        # Format the month as text
+        draw = wasp.watch.drawable
         month = now[1] - 1
-        month = MONTH[month*3:(month+1)*3]
+        month = MONTH[month*2:(month+1)*2]
 
-        # Draw the changeable parts of the watch face
-        draw.blit(DIGITS[now[4]  % 10], 4*48, 80, fg=hi)
-        draw.blit(DIGITS[now[4] // 10], 3*48, 80, fg=lo)
-        draw.blit(DIGITS[now[3]  % 10], 1*48, 80, fg=hi)
-        draw.blit(DIGITS[now[3] // 10], 0*48, 80, fg=lo)
-        draw.set_color(hi)
-        draw.string('{} {} {}'.format(now[2], month, now[0]),
-                0, 180, width=240)
-
-        # Record the minute that is currently being displayed
+        stunda = ["twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven"]
+        minuta = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"]
         self._min = now[4]
+        if now[4] == 0:
+            say = ("", "", stunda[now[3] % 12])
+        elif now[4] == 15:
+            say = ("quarter", "after", "", stunda[now[3] % 12])
+        elif now[4] == 30:
+            say = ("", stunda[(now[3]) % 12], "thirty")
+        elif 0 < now[4] < 21:
+            say = (minuta[now[4]], "after", "", stunda[now[3] % 12])
+        elif 30 < now[4] < 40:
+            say = (stunda[(now[3]) % 12], "", "thirty", minuta[now[4]-30])
+        elif 20 < now[4] < 30:
+            say = (minuta[30-now[4]], "till ", stunda[(now[3]) % 12], "thirty")
+        elif now[4] == 45:
+            say = ("quarter", "till", "", stunda[(now[3]+1) % 12])
+        elif 39 < now[4] < 60:
+            say = (minuta[60-now[4]], "till", "", stunda[(now[3]+1) % 12])
+        else:
+            say = ("s", "h", "i t", now[4])
+        
+        draw.fill(0)
+        self.battery()
+        draw.set_color(0xf800, bg=0xffff)
+        draw.set_font(sans36)
+        draw.string(say[0], 0, 20)
+        draw.string("{}{}".format(say[1],say[2]), 0, 80)
+        draw.string(say[3], 0, 140)
+        draw.set_color(0xffff, bg=0x0000)
+        draw.set_font(sans24)
+        draw.string("{}{}:{}{}        {}/{}".format(now[3] // 10, now[3] % 10,now[4] // 10, now[4] % 10, month, now[2]), 0, 200) 
+        return True
