@@ -118,7 +118,7 @@ class ClockApp():
         elif now[4] == 15:
             say = ("quarter", "after", "", stunda[now[3] % 12])
         elif now[4] == 30:
-            say = ("", stunda[(now[3]) % 12], "thirty")
+            say = ("", stunda[(now[3]) % 12], "", "thirty")
         elif 0 < now[4] < 21:
             say = (minuta[now[4]], "after", "", stunda[now[3] % 12])
         elif 30 < now[4] < 40:
