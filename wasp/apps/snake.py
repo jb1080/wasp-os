@@ -3,7 +3,7 @@
 
 """Snake Game
 ~~~~~~~~~~~~~
-
+Modified Icon
 This is a classic arcade game called snake.
 
 .. figure:: res/SnakeApp.png
@@ -24,7 +24,7 @@ snake_icon = (
     b'\x02'
     b'`@'
     b'4@\x81M?\x14M?\x14M?\x14M?\x14M'
-    b'?\x14M?\x14M?\x14M?\x14M?U\x80\x0b'
+    b'?\x14M?\x14M?\x14M?\x14M?U\x80\xb4'
     b'\x8f?\x12\x8f\x10\xcd\x02\xcd%\x8f\x10\xcd\x02\xcd%\x8f'
     b'\x10\xcd\x02\xcd%\x8f\x10\xcd\x02\xcd%\x8f\x10\xcd\x02\xcd'
     b'%\x8f\x10\xcd\x02\xcd%\x8f\x10\xcd\x02\xcd%\x8f\x10\xcd'
@@ -120,7 +120,7 @@ class SnakeGameApp():
                 return True
         if self.running:
             self.snake.show()
-            draw.fill(x=self.food[0],y=self.food[1],w=15,h=15,bg=0x00ff)
+            draw.fill(x=self.food[0],y=self.food[1],w=15,h=15,bg=0xf800)
         return True
 
 
